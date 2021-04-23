@@ -30,9 +30,25 @@ int main(){
     }
 
     Node * Uzi = summonUzi();
-    cout << Uzi->child[0]->value[0] << endl;
+    // cout << Uzi->child[0]->value[0] << endl;
 
-    // Tree * clive = new Tree();
+    int test;
+    test = Uzi->numChildren();
+    // cout << "Uzi has " << test << " children. "<< endl;
+
+    Tree * clive = new Tree(Uzi);
+    // clive->print(clive->root);
+
+    Node * searchTest = clive->search(clive->root,12);
+    if(searchTest->value[0]){
+        cout << "leaf = " << searchTest->value[0] << endl;
+    }
+
+    clive->insert(12);
+
+    // clive->print(clive->root);
+   
+    // cout << clive->root->value[0];
     // clive->root = Uzi;
 
     obliterateUzi(Uzi);
@@ -78,26 +94,57 @@ Node * summonUzi(){
     lvl2Node3->child[2] = lvl3Node7;
 
     Node * lvl4Node1 = new Node(1, -1, -1);
+    lvl4Node1->parent = lvl3Node1;
+    lvl3Node1->child[0] = lvl4Node1;
     Node * lvl4Node2 = new Node(3, -1, -1);
+    lvl4Node2->parent = lvl3Node1;
+    lvl3Node1->child[2] = lvl4Node2;
+    
 
     Node * lvl4Node3 = new Node(5, -1, -1);
+    lvl4Node3->parent = lvl3Node2;
+    lvl3Node2->child[0] = lvl4Node3;
     Node * lvl4Node4 = new Node(8, -1, -1);
+    lvl4Node4->parent = lvl3Node2;
+    lvl3Node2->child[2] = lvl4Node4;
 
     Node * lvl4Node5 = new Node(11, -1, -1);
+    lvl4Node5->parent = lvl3Node3;
+    lvl3Node3->child[0] = lvl4Node5;
     Node * lvl4Node6 = new Node(14, -1, -1);
+    lvl4Node6->parent = lvl3Node3;
+    lvl3Node3->child[1] = lvl4Node6;
     Node * lvl4Node7 = new Node(17, -1, -1);
+    lvl4Node7->parent = lvl3Node3;
+    lvl3Node3->child[2] = lvl4Node7;
 
     Node * lvl4Node8 = new Node(19, -1, -1);
+    lvl4Node8->parent = lvl3Node4;
+    lvl3Node4->child[0] = lvl4Node8;
     Node * lvl4Node9 = new Node(21, -1, -1);
+    lvl4Node9->parent = lvl3Node4;
+    lvl3Node4->child[2] = lvl4Node9;
 
     Node * lvl4Node10 = new Node(24, -1, -1);
+    lvl4Node10->parent = lvl3Node5;
+    lvl3Node5->child[0] = lvl4Node10;
     Node * lvl4Node11 = new Node(28, -1, -1);
+    lvl4Node11->parent = lvl3Node5;
+    lvl3Node5->child[2] = lvl4Node11;
 
     Node * lvl4Node12 = new Node(31, -1, -1);
+    lvl4Node12->parent = lvl3Node6;
+    lvl3Node6->child[0] = lvl4Node12;
     Node * lvl4Node13 = new Node(33, -1, -1);
+    lvl4Node13->parent = lvl3Node6;
+    lvl3Node6->child[2] = lvl4Node13;
 
     Node * lvl4Node14 = new Node(36, -1, -1);
+    lvl4Node14->parent = lvl3Node7;
+    lvl3Node7->child[0] = lvl4Node14;
     Node * lvl4Node15 = new Node(39, -1, -1);
+    lvl4Node15->parent = lvl3Node7;
+    lvl3Node7->child[2] = lvl4Node15;
 
     // Node * Uzi[3][9];
     // Uzi[0][0] = root;  
