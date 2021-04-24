@@ -42,7 +42,7 @@ class Tree {
                 return NULL;
             }
         }
-        bool insert(int valToAdd){
+        bool insert(int valToAdd, Node * root){
             Node * b = search(root, valToAdd);
             if(b->value[0]==valToAdd){
                 return true;

@@ -44,9 +44,12 @@ int main(){
         cout << "leaf = " << searchTest->value[0] << endl;
     }
 
-    clive->insert(12);
+    cout << "Clive has a root: " <<clive->root->value[0] << " " << clive->root->value[1] << " " << clive->root->value[2] << endl; 
 
-    // clive->print(clive->root);
+    clive->insert(38, clive->root);
+
+    cout << "Clive got a new root: " <<clive->root->value[0] << " " << clive->root->value[1] << " " << clive->root->value[2] << endl; 
+    clive->print(clive->root);
    
     // cout << clive->root->value[0];
     // clive->root = Uzi;
