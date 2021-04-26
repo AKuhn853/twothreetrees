@@ -19,9 +19,11 @@ class Tree {
                 cout << "{ " << start->value[0] << " } "<< endl;
             }
         }
+
+        // constructor
         Tree(Node * r){
             root = r;
-        } // constructor
+        } 
 
         Node * search(Node * node, int a){
             if(node->numChildren()==0){
@@ -51,6 +53,17 @@ class Tree {
             b->absorb(a, root);
             return true;
         }
-        bool kill(int valToKill); // changed delete to kill b/c delete keyword
+
+        // changed delete to kill b/c delete keyword
+        bool kill(int valToKill, Node * root){
+            Node * b = search(root, valToKill);
+            if(b->value[0]==valToKill){
+                root->discard(b);
+                return this;
+            } 
+            else{
+                return this;
+            }
+        } 
         void print();
 };

@@ -37,22 +37,27 @@ int main(){
     // cout << "Uzi has " << test << " children. "<< endl;
 
     Tree * clive = new Tree(Uzi);
+    clive->print(clive->root);
+
+    clive->kill(3, clive->root);
+
+    clive->print(clive->root);
+
+    // Node * searchTest = clive->search(clive->root,7);
+    // if(searchTest->value[0]){
+    //     cout << "leaf = " << searchTest->value[0] << endl;
+    // }
+
+
+    // cout << "Clive has a root: " <<clive->root->value[0] << " " << clive->root->value[1] << " " << clive->root->value[2] << endl; 
+
+    // clive->insert(10, clive->root);
+
+    // cout << "Clive got a new root: " <<clive->root->value[0] << " " << clive->root->value[1] << " " << clive->root->value[2] << endl; 
+    // cout << "Clive's root has kids: " <<clive->root->child[0]->value[0] << " " << clive->root->child[0]->value[1] << " " << clive->root->child[0]->value[2] << endl;
+    // cout << "Clive's root has other kids: " <<clive->root->child[2]->value[0] << " " << clive->root->child[2]->value[1] << " " << clive->root->child[2]->value[2] << endl;
     // clive->print(clive->root);
 
-    Node * searchTest = clive->search(clive->root,12);
-    if(searchTest->value[0]){
-        cout << "leaf = " << searchTest->value[0] << endl;
-    }
-
-    cout << "Clive has a root: " <<clive->root->value[0] << " " << clive->root->value[1] << " " << clive->root->value[2] << endl; 
-
-    clive->insert(38, clive->root);
-
-    cout << "Clive got a new root: " <<clive->root->value[0] << " " << clive->root->value[1] << " " << clive->root->value[2] << endl; 
-    clive->print(clive->root);
-   
-    // cout << clive->root->value[0];
-    // clive->root = Uzi;
 
     obliterateUzi(Uzi);
     return 0;
@@ -92,6 +97,7 @@ Node * summonUzi(){
     Node * lvl3Node6 = new Node(31, -1, 33);
     lvl3Node6->parent = lvl2Node3;
     Node * lvl3Node7 = new Node(36, -1, 39);
+    // Node * lvl3Node7 = new Node(36, 37, 39);
     lvl3Node7->parent = lvl2Node3;
     lvl2Node3->child[0] = lvl3Node6;
     lvl2Node3->child[2] = lvl3Node7;
@@ -148,6 +154,10 @@ Node * summonUzi(){
     Node * lvl4Node15 = new Node(39, -1, -1);
     lvl4Node15->parent = lvl3Node7;
     lvl3Node7->child[2] = lvl4Node15;
+
+    // Node * lvl4Node16 = new Node(37, -1, -1);
+    // lvl4Node16->parent = lvl3Node7;
+    // lvl3Node7->child[1] = lvl4Node16;
 
     // Node * Uzi[3][9];
     // Uzi[0][0] = root;  
