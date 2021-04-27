@@ -44,21 +44,29 @@ class Tree {
                 return NULL;
             }
         }
-        bool insert(int valToAdd, Node * root){
+        Node * insert(int valToAdd, Node * root){
             Node * b = search(root, valToAdd);
             if(b->value[0]==valToAdd){
-                return true;
+                return root;
             }
             Node * a = new Node(valToAdd);
-            b->absorb(a, root);
-            return true;
+            root =  b->absorb(a, root);
+
+            // cout << "root child 1: " << root->child[0]->value[0] << " " << root->child[0]->value[1] << " " << root->child[0]->value[2] << endl;
+                
+            // cout << "root child 2: " << root->child[2]->value[0] << " " << root->child[2]->value[1] << " " << root->child[2]->value[2]<< endl;
+                
+            // cout << "did we change root? " << root->value[0] << " " << root->value[1] << " " << root->value[2] << endl;
+            // cout << root << endl;
+
+            return root;
         }
 
         // changed delete to kill b/c delete keyword
         bool kill(int valToKill, Node * root){
             Node * b = search(root, valToKill);
             if(b->value[0]==valToKill){
-                root->discard(b);
+                root->discard(b, root);
                 return this;
             } 
             else{
