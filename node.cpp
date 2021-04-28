@@ -494,28 +494,50 @@ class Node{
                     root = b;
                     return;
                 }
-                if(grandpa->child[0]==p){
-                    grandpa->child[2]->value[1] = grandpa->child[2]->value[0];
-                    grandpa->child[2]->child[1] = grandpa->child[2]->child[0];
-                    grandpa->child[2]->child[0] = b;
-                    grandpa->child[2]->value[0] = b->value[0];
+
+                if(removeChild==p->child[0]){
+                    p->child[0] = NULL;
+                    absorb(p->child[2],root);
+                    return;
+                }else if(removeChild==p->child[2]){
+                    p->child[2] = NULL;
+                    absorb(p->child[0],root);
+                    return;
+                }
+
+                // Node * grampsKid;
+                // if(p->child[0]){
+                //     grampsKid = p->child[0];
+                // }else{
+                //     grampsKid = p->child[2];
+                // }
+                // if(grandpa->child[0]==p){
+                //     // grandpa->child[2]->value[1] = grandpa->child[2]->value[0];
+                //     // grandpa->child[2]->child[1] = grandpa->child[2]->child[0];
+                //     // grandpa->child[2]->child[0] = b;
+                //     // grandpa->child[2]->value[0] = b->value[0];
             
-                    grandpa->child[0] = NULL;
-                    grandpa->value[0] = -1;
-                }else{
-                    cout << "b: " << b->value[0] << " " << b->value[1] << " " << b->value[2] << endl;
-                    grandpa->child[0]->child[1] = grandpa->child[2]->child[2];
-                    grandpa->child[0]->child[2] = b;
-                    grandpa->child[0]->value[2] = b->value[0];
+                //     // grandpa->child[0] = NULL;
+                //     // grandpa->value[0] = -1;
+                //     // grampsKid = grandpa->child[2];
+                    
+                    
+                // }else{
+                //     cout << "b: " << b->value[0] << " " << b->value[1] << " " << b->value[2] << endl;
+                //     grandpa->child[0]->child[1] = grandpa->child[2]->child[2];
+                //     grandpa->child[0]->child[2] = b;
+                //     grandpa->child[0]->value[2] = b->value[0];
                     
 
-                    grandpa->value[0] = grandpa->child[0]->value[2];
-                    grandpa->child[2] = NULL;
-                    grandpa->value[2] = -1;
-                }
-                cout << "gramps 2.0 " << grandpa->value[0] << " " << grandpa->value[1] << " " << grandpa->value[2] << endl;
-                cout << "19 24 28??: " << grandpa->child[2]->value[0] <<  " " << grandpa->child[2]->value[1] << " " << grandpa->child[2]->value[2] << " " << endl;
-                return discard(p, root);
+                //     grandpa->value[0] = grandpa->child[0]->value[2];
+                //     grandpa->child[2] = NULL;
+                //     grandpa->value[2] = -1;
+                //     grampsKid = grandpa->child[0];
+                // }
+                // cout << "gramps 2.0 " << grandpa->value[0] << " " << grandpa->value[1] << " " << grandpa->value[2] << endl;
+                // cout << "19 24 28??: " << grandpa->child[2]->value[0] <<  " " << grandpa->child[2]->value[1] << " " << grandpa->child[2]->value[2] << " " << endl;
+                // absorb(grampsKid, root);
+                return;
             }
         }
 

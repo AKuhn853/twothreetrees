@@ -38,8 +38,8 @@ int main(){
 
 
     Node * one = new Node(1);
-    // Tree * clive = new Tree(Uzi);
-    Tree * clive = new Tree(one);
+    Tree * clive = new Tree(Uzi);
+    // Tree * clive = new Tree(one);
 
     cout << "Node: " << one->value[0] << " " << one->value[1] << " " << one->value[2] << endl;    
 
@@ -47,33 +47,33 @@ int main(){
     clive->print(clive->root);
 
 
-    clive->root = clive->insert(40, clive->root);
-    clive->print(clive->root);
-    clive->root = clive->insert(0, clive->root);
-    clive->print(clive->root);
-    clive->root = clive->insert(4, clive->root);
-    
-    clive->root = clive->insert(10, clive->root);
-    clive->print(clive->root);
-    clive->root = clive->insert(33, clive->root);
+    // clive->root = clive->insert(40, clive->root);
     // clive->print(clive->root);
-    clive->root = clive->insert(7, clive->root);
-    
-    clive->root = clive->insert(45, clive->root);
+    // clive->root = clive->insert(0, clive->root);
     // clive->print(clive->root);
-    clive->root = clive->insert(21, clive->root);
-    clive->root = clive->insert(15, clive->root);
-    clive->root = clive->insert(6, clive->root);
-    clive->root = clive->insert(2, clive->root);
-    clive->root = clive->insert(5, clive->root);
-    clive->root = clive->insert(16, clive->root);
-    clive->root = clive->insert(20, clive->root);
-    clive->root = clive->insert(55, clive->root);
-    clive->root = clive->insert(54, clive->root);
-    clive->root = clive->insert(160, clive->root);
+    // clive->root = clive->insert(4, clive->root);
+    
+    // clive->root = clive->insert(10, clive->root);
+    // clive->print(clive->root);
+    // clive->root = clive->insert(33, clive->root);
+    // // clive->print(clive->root);
+    // clive->root = clive->insert(7, clive->root);
+    
+    // clive->root = clive->insert(45, clive->root);
+    // // clive->print(clive->root);
+    // clive->root = clive->insert(21, clive->root);
+    // clive->root = clive->insert(15, clive->root);
+    // clive->root = clive->insert(6, clive->root);
+    // clive->root = clive->insert(2, clive->root);
+    // clive->root = clive->insert(5, clive->root);
+    // clive->root = clive->insert(16, clive->root);
+    // clive->root = clive->insert(20, clive->root);
+    // clive->root = clive->insert(55, clive->root);
+    // clive->root = clive->insert(54, clive->root);
+    // clive->root = clive->insert(160, clive->root);
 
-    clive->kill(20, clive->root);
-    clive->kill(55, clive->root);
+    // clive->kill(20, clive->root);
+    // clive->kill(55, clive->root);
     // clive->kill(160, clive->root);
     
 
@@ -83,7 +83,7 @@ int main(){
     // clive->print(clive->root);
 
     // // need to fix kill for 5, works for the rest of the left of the tree
-    // clive->kill(8, clive->root);
+    clive->kill(21, clive->root);
     // // clive->kill(14, clive->root);
 
     cout << "Clive Version 2 (After delete) " << endl;
