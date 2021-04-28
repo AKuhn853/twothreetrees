@@ -49,9 +49,10 @@ class Tree {
             }
         }
         Node * insert(int valToAdd, Node * root){
-            cout <<" absorbing " << valToAdd << endl;
+            cout <<"absorbing " << valToAdd << endl;
             Node * b = search(root, valToAdd);
-            cout << "seach val: " << b->value[0] << endl;
+            cout << "search val: " << b->value[0] << endl;
+            cout << endl;
             if(b->value[0]==valToAdd){
                 return root;
             }
