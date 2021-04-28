@@ -32,25 +32,20 @@ int main(){
     Node * Uzi = summonUzi();
     // cout << Uzi->child[0]->value[0] << endl;
 
-    int test;
-    // test = Uzi->numChildren();
-    // cout << "Uzi has " << test << " children. "<< endl;
-
-
     Node * one = new Node(1);
     Tree * clive = new Tree(Uzi);
     // Tree * clive = new Tree(one);
 
-    cout << "Node: " << one->value[0] << " " << one->value[1] << " " << one->value[2] << endl;    
+    // cout << "Node: " << one->value[0] << " " << one->value[1] << " " << one->value[2] << endl;    
 
     cout << "Clive Version 0 " << endl;
     clive->print(clive->root);
 
 
     // clive->root = clive->insert(40, clive->root);
-    // clive->print(clive->root);
+    // // clive->print(clive->root);
     // clive->root = clive->insert(0, clive->root);
-    // clive->print(clive->root);
+    // // clive->print(clive->root);
     // clive->root = clive->insert(4, clive->root);
     
     // clive->root = clive->insert(10, clive->root);
@@ -72,7 +67,7 @@ int main(){
     // clive->root = clive->insert(54, clive->root);
     // clive->root = clive->insert(160, clive->root);
 
-    // clive->kill(20, clive->root);
+    // clive->kill(8, clive->root);
     // clive->kill(55, clive->root);
     // clive->kill(160, clive->root);
     
