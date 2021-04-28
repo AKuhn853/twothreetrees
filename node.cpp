@@ -26,11 +26,10 @@ class Node{
         }
 
         Node * absorb(Node * a, Node * root){ 
-            cout << "this: " << this->value[0] << " " << this->value[1] << " " << this->value[2] << endl;
-            cout << "a: " << a->value[0] << " " << a->value[1] << " " << a->value[2] << endl;
+            // cout << "this: " << this->value[0] << " " << this->value[1] << " " << this->value[2] << endl;
+            // cout << "a: " << a->value[0] << " " << a->value[1] << " " << a->value[2] << endl;
             if(this==root){
                 if(this->numChildren()==0){
-                    cout << "here in baby root case" << endl;
                     Node ** children = new Node*[2];
                     children[0] = a;
                     children[1] = this;
@@ -45,41 +44,27 @@ class Node{
                     mr->child[2] = children[1];
 
                     root = mr;
-                    cout << "rooooot: " << root->value[0] << " " << root->value[2] << endl;
-                    cout << "child 1: " << root->child[0]->value[0] << " child 2: " << root->child[2]->value[0] << endl;
                     cout << root << endl;
                 }else{
-                    cout << "Mega root 2?" << endl;
                     Node ** children = new Node*[2];
 
                     children[0] = a;
-
-
                   
                     children[0]->child[0] = a->child[0];
                     children[0]->child[1] = a->child[1];
                     children[0]->child[2] = a->child[2];
-                    // children[0]->child[0]->parent = children[0];
-                    // children[0]->child[1]->parent = children[0];
-                    // children[0]->child[2]->parent = children[0];
 
                     children[1] = this;
                     children[1]->child[0] = this->child[0];
                     children[1]->child[1] = this->child[1];
                     children[1]->child[2] = this->child[2];
-                    // children[1]->child[0]->parent = children[1];
-                    // children[1]->child[1]->parent = children[1];
-                    // children[1]->child[2]->parent = children[1];
 
                     Node * mr;
                     if(a->numChildren()>1){
                         mr = new Node(a->value[2],-1,this->value[2]);
-                    }
-                    else{
+                    }else{
                         mr = new Node(a->value[0],-1,this->value[0]);
                     }
-                    
-                    
 
                     mr->child[0] = children[0];
                     mr->child[2] = children[1];
@@ -107,20 +92,17 @@ class Node{
 
                     root = mr;
                 }   
-            }
-            else{
+            }else{
                 Node * p = this->parent;
-                cout << "this: " << this->value[0] <<" " << this->value[1] << " " << this->value[2]<< endl;
-                cout << "this parent: " << p->value[0] <<" " << p->value[1] << " " << p->value[2]<< endl;
+                // cout << "this: " << this->value[0] <<" " << this->value[1] << " " << this->value[2]<< endl;
+                // cout << "this parent: " << p->value[0] <<" " << p->value[1] << " " << p->value[2]<< endl;
                 Node * left;
                 if(p->numChildren()<3){
-                    cout << "a: " << a->value[0] << " " << a->value[1] << " "<< a->value[2] << endl;
+                    // cout << "a: " << a->value[0] << " " << a->value[1] << " "<< a->value[2] << endl;
                     
                     a->parent = p;
-                    cout << "a's parent: " << a->parent->value[0] << " " << a->parent->value[1] << " "<< a->parent->value[2] << endl;
-                    cout << "ppppp: " << p->value[2] << endl;
+                    // cout << "a's parent: " << a->parent->value[0] << " " << a->parent->value[1] << " "<< a->parent->value[2] << endl;
                     if(a->value[0]<p->value[0]){
-                        cout << "here 1" << endl;
                         p->value[1] = p->value[0];
                         p->child[1] = p->child[0];
                         p->child[0] = a;
@@ -136,12 +118,7 @@ class Node{
                         }else{
                             p->value[1] = a->value[2];
                         }
-                        cout << "here 2 " << p->value[0] << " " <<p->value[1] << " " << p->value[2]<< endl;
-                        // cout << "a parent: " << a->parent->value[0] << " " <<
                     }else{
-                        cout << "here 3" << endl;
-                        cout << p->value[0] << " " << p->value[1] <<  " " << p->value[2] << endl; 
-
                         p->value[1] = p->value[2];
                         p->child[1] = p->child[2];
                         // p->value[2] = a->value[0];
@@ -152,7 +129,6 @@ class Node{
                             p->value[2] = a->value[2];
                         }
                     }
-                    cout << "a's parent after if else: " << a->parent->value[0] << " " << a->parent->value[1] << " "<< a->parent->value[2] << endl;
 
                     if(p->parent){
                         Node * grandpa = p->parent;
@@ -165,16 +141,13 @@ class Node{
                         }  
                     }
                      
-                }
-                else{
+                }else{
                     if(this==p->child[0]){   
-                        cout << "this 1? " << endl;
                         // we won't be adding a leaf to a node that isn't a leaf
                         // so this logic should be sufficient?
                         if(this->numChildren()>1){ 
                             left = new Node(a->value[2], -1, this->value[2]);
-                        }
-                        else {
+                        }else {
                             left = new Node(a->value[0], -1, this->value[0]);
                         }
                         
@@ -190,7 +163,6 @@ class Node{
                         p->value[1] = -1;
                         root = p->absorb(left, root);
                     }else if(this==p->child[1]){
-                         cout << "this 2? " << endl;
                         if(p->child[0]->numChildren()>1){
                             left = new Node(p->child[0]->value[2],-1,a->value[2]);
                         }
@@ -208,11 +180,9 @@ class Node{
                         p->value[1] = -1;
                         root = p->absorb(left, root);
                     }else if(this==p->child[2]){
-                         cout << "this 3? " << endl;
                         if(p->child[0]->numChildren()>1){
                             left = new Node(p->child[0]->value[2],-1,p->child[1]->value[2]);
-                        }
-                        else{
+                        }else{
                             left = new Node(p->child[0]->value[0],-1,p->child[1]->value[0]);
                         }
                         left->child[2] = p->child[1];
@@ -223,8 +193,7 @@ class Node{
                         p->child[1] = NULL;  // p no longer has a middle child
                         if(a->numChildren()>1){
                             p->value[0] = a->value[2];
-                        }
-                        else{
+                        }else{
                             p->value[0] = a->value[0];
                         }
                         p->value[1] = -1;
@@ -241,9 +210,6 @@ class Node{
                 }else if(a->numChildren()==1){
                     a->child[0]->parent = a;
                 }
-                cout << "p at the bottom: " << p->value[0] << " " << p->value[1] << " " << p->value[2] << endl;
-                cout << "a bottom: " << a->value[0] << " " << a->value[1] << " " << a->value[2] << endl;
-                cout << "a's parent bottom: " << a->parent->value[0] << " " << a->parent->value[1] <<" " << a->parent->value[2] << endl;  
             }
             
             return root;
@@ -542,9 +508,3 @@ class Node{
         }
 
 };
-
-// Node(int val); // constructor
-// bool numChildren();
-// void absorb(Node * newChild);
-// void discard(Node * removeChild);
-
