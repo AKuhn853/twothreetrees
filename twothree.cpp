@@ -8,46 +8,83 @@ Node * summonUzi();
 void obliterateUzi(Node * root);
 
 int main(){
-    fstream infile;
-    infile.open("uziTree.txt");
+    // fstream infile;
+    // infile.open("uziTree.txt");
 
-    int numLeaves;
-    infile >> numLeaves;
+    // int numLeaves;
+    // infile >> numLeaves;
     
-    int * leaves =  new int[numLeaves];
+    // int * leaves =  new int[numLeaves];
 
-    for(int i = 0; i < numLeaves; i++){
-        infile >> leaves[i];
-    }
+    // for(int i = 0; i < numLeaves; i++){
+    //     infile >> leaves[i];
+    // }
 
-    infile.close();
+    // infile.close();
 
-    Node ** leafnodes = new Node*[numLeaves];
-    for(int i = 0; i<numLeaves; i++){
-        // cout << "leaves[" << i << "]: " << leaves[i] << endl;
-        leafnodes[i] = new Node(leaves[i]);
-        // cout << leafnodes[i]->value[0] << endl;
-    }
+    // Node ** leafnodes = new Node*[numLeaves];
+    // for(int i = 0; i<numLeaves; i++){
+    //     // cout << "leaves[" << i << "]: " << leaves[i] << endl;
+    //     leafnodes[i] = new Node(leaves[i]);
+    //     // cout << leafnodes[i]->value[0] << endl;
+    // }
 
     Node * Uzi = summonUzi();
     // cout << Uzi->child[0]->value[0] << endl;
 
     int test;
-    test = Uzi->numChildren();
+    // test = Uzi->numChildren();
     // cout << "Uzi has " << test << " children. "<< endl;
 
-    Tree * clive = new Tree(Uzi);
+
+    Node * one = new Node(1);
+    // Tree * clive = new Tree(Uzi);
+    Tree * clive = new Tree(one);
+
+    cout << "Node: " << one->value[0] << " " << one->value[1] << " " << one->value[2] << endl;    
 
     cout << "Clive Version 0 " << endl;
     clive->print(clive->root);
 
-    // clive->insert(34, clive->root);
 
+    clive->root = clive->insert(40, clive->root);
+    clive->print(clive->root);
+    clive->root = clive->insert(0, clive->root);
+    clive->print(clive->root);
+    clive->root = clive->insert(4, clive->root);
+    
+    clive->root = clive->insert(10, clive->root);
+    clive->print(clive->root);
+    clive->root = clive->insert(33, clive->root);
+    // clive->print(clive->root);
+    clive->root = clive->insert(7, clive->root);
+    
+    clive->root = clive->insert(45, clive->root);
+    // clive->print(clive->root);
+    clive->root = clive->insert(21, clive->root);
+    clive->root = clive->insert(15, clive->root);
+    clive->root = clive->insert(6, clive->root);
+    clive->root = clive->insert(2, clive->root);
+    clive->root = clive->insert(5, clive->root);
+    clive->root = clive->insert(16, clive->root);
+    clive->root = clive->insert(20, clive->root);
+    clive->root = clive->insert(55, clive->root);
+    clive->root = clive->insert(54, clive->root);
+    clive->root = clive->insert(160, clive->root);
+
+    clive->kill(20, clive->root);
+    clive->kill(55, clive->root);
+    // clive->kill(160, clive->root);
+    
+
+    // cout << "root: " << clive->root->value[0] << " " << clive->root->value[1] << " " << clive->root->value[2] << endl;
+    // cout << clive->root << endl;
     // cout << "Clive Version 1 (After insert) " << endl;
     // clive->print(clive->root);
 
-    // need to fix kill for 5, works for the rest of the left of the tree
-    clive->kill(8, clive->root);
+    // // need to fix kill for 5, works for the rest of the left of the tree
+    // clive->kill(8, clive->root);
+    // // clive->kill(14, clive->root);
 
     cout << "Clive Version 2 (After delete) " << endl;
     clive->print(clive->root);
@@ -65,7 +102,8 @@ int main(){
 
     // clive->print(clive->root);
 
-    obliterateUzi(Uzi);
+    // delete one;
+    // obliterateUzi(Uzi);
     return 0;
 }
 
