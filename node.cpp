@@ -215,17 +215,24 @@ class Node{
             return root;
         }
 
-        void discard(Node * removeChild, Node * root){
+        Node * discard(Node * removeChild, Node * root){
+            if(removeChild==root && removeChild->numChildren()==0){
+                cout << "You have deleted the only value in this tree, therefore the tree will be removed." << endl;
+                return NULL;
+            }
             cout << "discarding node {" << removeChild->value[0] << " " << removeChild->value[1] << " " << removeChild->value[2] << "}" << endl;
             Node * p = removeChild->parent;
-
+            cout << "removeChild has a parent" << endl;
             // severing connection between p and removeChild
             removeChild->parent = NULL;
 
             if(p->numChildren()==3){
+                cout << "identified numChildren" << endl;
                 // easy case; removing leaf of full parent
                 int killVal = removeChild->value[0];
+                cout << "killVal assigned" << endl;
                 if(removeChild==p->child[0]){
+                    cout << "removing child 0" << endl;
                     p->child[0] = p->child[1];
                     p->value[0] = p->child[1]->value[0];
                     p->value[1] = -1;
@@ -234,11 +241,13 @@ class Node{
                     p->child[1] = NULL;
                     p->value[1] = -1;
                 }else if(removeChild==p->child[2]){
+                    cout << "removing child 2" << endl;
                     p->child[2] = p->child[1];
                     p->value[2] = p->child[1]->value[0];
                     p->child[1] = NULL;
                     p->value[1] = -1;
                 }
+                cout << "made it out" << endl;
                 //Bubble up and fill in new values if necessary
                 Node * frank = p;
                 while(frank->parent){ 
@@ -251,13 +260,18 @@ class Node{
                         frank->value[0]= frank->child[0]->value[2];
                     }
                 }
-                return;
+                return root;
             }
 
             // If root does not have three children, we can't delete one of its two children.
+
             if(p==root){
-                cout << "CANNOT DELETE: Deletion of this value will result in an incomplete tree." << endl;
-                return;
+                if(removeChild==p->child[0])
+                    root=p->child[2];
+                else
+                    root=p->child[0];
+                cout << "Your tree is now a single leaf." << endl;
+                return root;
             }
 
             // harder case: have to do some reshuffling
@@ -315,7 +329,7 @@ class Node{
                 }
                 cout << "the node to assimilate is the grandfather's " << j << "th child ";
                 cout << "and has values " << grandpa->child[j]->child[0]->value[0] <<  " " << grandpa->child[j]->child[0]->value[1] << " " << grandpa->child[j]->child[0]->value[2] << " " << endl;
-                cout << "grandpa's " << 1 << "th child has " << grandpa->child[1]->numChildren() << " children" << endl;
+                cout << "grandpa's " << 1 << "th child has " << grandpa->child[j]->numChildren() << " children" << endl;
                 // generalize the indicies; things may change depending 
                 // on what node is deleted
                 // also should probs set parents of nodes but that's for future us
@@ -512,20 +526,33 @@ class Node{
                     grandpa->child[2]->value[1] = grandpa->child[2]->value[0];
                     grandpa->child[2]->child[1] = grandpa->child[2]->child[0];
                     grandpa->child[2]->child[0] = p->child[0];
-                    grandpa->child[2]->value[0] = p->value[0];
-                    cout << "new grandchild 2: {" << grandpa->child[2]->value[0] << " " << grandpa->child[2]->value[1] << " " << grandpa->child[2]->value[2] << "}" << endl;
-                    discard(p, root);                    
+                    if(p->value[2]==-1)
+                        grandpa->child[2]->value[0] = p->value[0];
+                    else
+                        grandpa->child[2]->value[0] = p->value[2];
+                    cout << "new parent 2: {" << grandpa->child[2]->value[0] << " " << grandpa->child[2]->value[1] << " " << grandpa->child[2]->value[2] << "}" << endl;
+                    if(grandpa==root){
+                        root=grandpa->child[2];
+                        return root;
+                    }
+                    root = discard(p, root);                    
                     
                 }else{
                     grandpa->child[0]->child[1] = grandpa->child[0]->child[2];
                     grandpa->child[0]->value[1] = grandpa->child[0]->value[2];
                     grandpa->child[0]->child[2] = p->child[0];
-                    grandpa->child[0]->value[2] = p->child[0]->value[0];
+                    if(p->value[2]==-1)
+                        grandpa->child[0]->value[2] = p->value[0];
+                    else
+                        grandpa->child[0]->value[2] = p->value[2];
                     grandpa->value[0] = grandpa->child[0]->value[2];
-                    cout << "new grandchild 0: {" << grandpa->child[0]->value[0] << " " << grandpa->child[0]->value[1] << " " << grandpa->child[0]->value[2] << "}" << endl;
-                    discard(p, root);
+                    cout << "new parent 0: {" << grandpa->child[0]->value[0] << " " << grandpa->child[0]->value[1] << " " << grandpa->child[0]->value[2] << "}" << endl;
+                    if(grandpa==root){
+                        root=grandpa->child[0];
+                        return root;
+                    }
+                    root = discard(p, root);
                 }
             }
-            return;
         }
 };
