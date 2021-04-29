@@ -78,7 +78,7 @@ int main(){
     // clive->print(clive->root);
 
     // // need to fix kill for 5, works for the rest of the left of the tree
-    clive->kill(24, clive->root);
+    clive->kill(1, clive->root);
     // // clive->kill(14, clive->root);
 
     cout << "Clive Version 2 (After delete) " << endl;
@@ -223,6 +223,4 @@ void obliterateUzi(Node * root){
 
     // delete Node lvl3Node6;
     // delete Node lvl3Node7;
-
-
 }
