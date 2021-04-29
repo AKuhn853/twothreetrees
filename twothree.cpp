@@ -78,7 +78,7 @@ int main(){
     // clive->print(clive->root);
 
     // // need to fix kill for 5, works for the rest of the left of the tree
-    clive->kill(21, clive->root);
+    clive->kill(24, clive->root);
     // // clive->kill(14, clive->root);
 
     cout << "Clive Version 2 (After delete) " << endl;
