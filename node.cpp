@@ -337,7 +337,7 @@ class Node{
                 } else{
                     children[i++] = grandpa->child[0]->child[0];
                     children[i++] = grandpa->child[0]->child[1];
-                    children[i++] = grandpa->child[0]->child[1];
+                    children[i++] = grandpa->child[0]->child[2];
                     grandpa->child[0]->child[0] = NULL;
                     grandpa->child[0]->child[1] = NULL;
                     grandpa->child[0]->child[2] = NULL;
@@ -389,7 +389,8 @@ class Node{
                 grandpa->child[1] = NULL;
                 grandpa->child[2] = NULL;
                 cout << "5>" << endl;
-                cout << i << endl;
+                cout << "number of children collected: " << i << endl;
+                cout << "totchildren (should be same as above): " << totChildren << endl;
 
                 // cout << "gramps kid num: " << grandpa->numChildren() << endl;
                 // cout << "gramps: " << grandpa->value[0] <<  " " << grandpa->value[1] << " " << grandpa->value[2] << " " << endl;  
@@ -397,26 +398,47 @@ class Node{
                 // not sure that this check is necessary
                 //if(children[0]->numChildren()==0){
                 
+                // for(int l = 0; l<i; l++){
+                //     cout << "children[" << l << "]->value[0]: " << children[l]->value[0] << endl;
+                //     cout << "children[" << l << "]->value[1]: " << children[l]->value[1] << endl;
+                //     cout << "children[" << l << "]->value[2]: " << children[l]->value[2] << endl;
+                //     cout << endl;
+                // }
                 if(totChildren == 4){
-                    grandpa->child[0] = new Node(children[0]->value[0],-1,children[1]->value[0]);
+                    cout << "4 totChildren case" << endl;
+                    if(children[0]->value[2]=-1)
+                        grandpa->child[0] = new Node(children[0]->value[0],-1,children[1]->value[0]);
+                    else
+                        grandpa->child[0] = new Node(children[0]->value[2],-1,children[1]->value[2]);
                     grandpa->child[0]->child[0] = children[0];
                     grandpa->child[0]->child[2] = children[1];
 
                     grandpa->child[1] = NULL;
-                    grandpa->child[2] = new Node(children[2]->value[0],-1,children[3]->value[0]);
+
+                    if(children[2]->value[2]==-1)
+                        grandpa->child[2] = new Node(children[2]->value[0],-1,children[3]->value[0]);
+                    else
+                        grandpa->child[2] = new Node(children[2]->value[2],-1,children[3]->value[2]);
                     grandpa->child[2]->child[0] = children[2];
                     grandpa->child[2]->child[2] = children[3];
 
                     grandpa->value[0] = grandpa->child[0]->value[2];
                     grandpa->value[2] = grandpa->child[2]->value[2];
                 }else if(totChildren == 5){
-                    grandpa->child[0] = new Node(children[0]->value[0],-1,children[1]->value[0]);
+                    cout << "5 totChildren case" << endl;
+                    if(children[0]->value[2]==-1)
+                        grandpa->child[0] = new Node(children[0]->value[0],-1,children[1]->value[0]);
+                    else
+                        grandpa->child[0] = new Node(children[0]->value[2],-1,children[1]->value[2]);
                     grandpa->child[0]->child[0] = children[0];
                     grandpa->child[0]->child[2] = children[1];
 
                     grandpa->child[1] = NULL;
 
-                    grandpa->child[2] = new Node(children[2]->value[0],children[3]->value[0], children[4]->value[0]);
+                    if(children[2]->value[2]==-1)
+                        grandpa->child[2] = new Node(children[2]->value[0],children[3]->value[0], children[4]->value[0]);
+                    else
+                        grandpa->child[2] = new Node(children[2]->value[2],children[3]->value[2], children[4]->value[2]);
                     grandpa->child[2]->child[0] = children[4];
                     grandpa->child[2]->child[1] = children[5];
                     grandpa->child[2]->child[2] = children[6];
@@ -424,14 +446,21 @@ class Node{
                     grandpa->value[0] = grandpa->child[0]->value[2];
                     grandpa->value[2] = grandpa->child[2]->value[2];
                 }else if(totChildren == 6){
-                    grandpa->child[0] = new Node(children[0]->value[0],children[1]->value[0], children[2]->value[0]);
+                    cout << "6 totChildren case" << endl;
+                    if(children[0]->value[2]==-1)
+                        grandpa->child[0] = new Node(children[0]->value[0],children[1]->value[0], children[2]->value[0]);
+                    else
+                        grandpa->child[0] = new Node(children[0]->value[2],children[1]->value[2], children[2]->value[2]);
                     grandpa->child[0]->child[0] = children[0];
                     grandpa->child[0]->child[1] = children[1];
                     grandpa->child[0]->child[2] = children[2];
 
                     grandpa->child[1] = NULL;
 
-                    grandpa->child[2] = new Node(children[3]->value[0],children[4]->value[0], children[5]->value[0]);
+                    if(children[3]->value[2]==-1)
+                        grandpa->child[2] = new Node(children[3]->value[0],children[4]->value[0], children[5]->value[0]);
+                    else
+                        grandpa->child[2] = new Node(children[3]->value[2],children[4]->value[2], children[5]->value[2]);
                     grandpa->child[2]->child[0] = children[3];
                     grandpa->child[2]->child[1] = children[4];
                     grandpa->child[2]->child[2] = children[5];
@@ -439,15 +468,25 @@ class Node{
                     grandpa->value[0] = grandpa->child[0]->value[2];
                     grandpa->value[2] = grandpa->child[2]->value[2];
                 }else{
-                    grandpa->child[0] = new Node(children[0]->value[0],-1,children[1]->value[0]);
+                    cout << "7 totChildren case" << endl;
+                    if(children[0]->value[2]==-1)
+                        grandpa->child[0] = new Node(children[0]->value[0],-1,children[1]->value[0]);
+                    else
+                        grandpa->child[0] = new Node(children[0]->value[2],-1,children[1]->value[2]);
                     grandpa->child[0]->child[0] = children[0];
                     grandpa->child[0]->child[2] = children[1];
 
-                    grandpa->child[1] = new Node(children[2]->value[0],-1,children[3]->value[0]);
+                    if(children[2]->value[2]==-1)
+                        grandpa->child[1] = new Node(children[2]->value[0],-1,children[3]->value[0]);
+                    else
+                        grandpa->child[1] = new Node(children[2]->value[2],-1,children[3]->value[2]);
                     grandpa->child[1]->child[0] = children[2];
                     grandpa->child[1]->child[2] = children[3];
 
-                    grandpa->child[2] = new Node(children[4]->value[0],children[5]->value[0], children[6]->value[0]);
+                    if(children[4]->value[2]==-1)
+                        grandpa->child[2] = new Node(children[4]->value[0],children[5]->value[0], children[6]->value[0]);
+                    else
+                        grandpa->child[2] = new Node(children[4]->value[2],children[5]->value[2], children[6]->value[2]);
                     grandpa->child[2]->child[0] = children[4];
                     grandpa->child[2]->child[1] = children[5];
                     grandpa->child[2]->child[2] = children[6];
