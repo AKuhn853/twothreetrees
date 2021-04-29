@@ -3,6 +3,10 @@ class Tree {
     public:
         Node * root;
         void print(Node * start){
+            if(!start){
+                cout << "You tried to print an empty tree." << endl;
+                return;
+            }
             // cout << "outside of logic: { " << start->value[0] << " " << start->value[1] << " " << start->value[2] << " }" << endl;
             if(start->numChildren()==3){
                 cout << "{ " << start->value[0] << " " << start->value[1] << " " << start->value[2] << " }" << endl;
@@ -17,7 +21,7 @@ class Tree {
                 print(start->child[2]);
             }
             else if (start->numChildren()==0){
-                cout << "{ " << start->value[0] << " } "<< endl;
+                cout << "leaf: { " << start->value[0] << " } "<< endl;
             }
         }
 
@@ -49,7 +53,12 @@ class Tree {
             }
         }
         Node * insert(int valToAdd, Node * root){
-            cout <<"absorbing " << valToAdd << endl;
+            cout <<"inserting " << valToAdd << endl;
+            if(!root){
+                Node * newRoot = new Node(valToAdd);
+                return newRoot;
+            }
+                
             Node * b = search(root, valToAdd);
             cout << "search val: " << b->value[0] << endl;
             cout << endl;
@@ -81,20 +90,25 @@ class Tree {
             }
             
             Node * a = new Node(valToAdd);
-            root =  b->absorb(a, root);
+            root = b->absorb(a, root);
 
             return root;
         }
 
         // changed delete to kill b/c delete keyword
-        bool kill(int valToKill, Node * root){
-            Node * b = search(root, valToKill);
+        Node * kill(int valToKill, Node * root){
+            Node * b;
+            if(root->value[2]==-1)
+                b = root;
+            else
+                b = search(root, valToKill);
+            cout << b->value[0] << endl;
             if(b->value[0]==valToKill){
-                root->discard(b, root);
-                return this;
+                root = root->discard(b, root);
+                return root;
             } 
             else{
-                return this;
+                return root;
             }
         } 
         void print();
