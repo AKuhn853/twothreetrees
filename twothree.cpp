@@ -8,19 +8,29 @@ Node * summonUzi();
 void obliterateUzi(Node * root);
 
 int main(){
-    // fstream infile;
-    // infile.open("uziTree.txt");
+    fstream infile;
+    infile.open("uziTree.txt");
 
-    // int numLeaves;
-    // infile >> numLeaves;
+    int numLeaves;
+    infile >> numLeaves;
     
-    // int * leaves =  new int[numLeaves];
+    int * leaves =  new int[numLeaves];
 
-    // for(int i = 0; i < numLeaves; i++){
-    //     infile >> leaves[i];
-    // }
+    Tree * clive;
+    Node ** leafnodes = new Node*[numLeaves];
 
-    // infile.close();
+    for(int i = 0; i < numLeaves; i++){
+        infile >> leaves[i];
+        cout << leaves[i] << endl;
+        leafnodes[i] = new Node(leaves[i]);
+        if(i==0){
+            clive = new Tree(leafnodes[0]);
+        }
+        else
+            clive->root = clive->insert(leaves[i], clive->root);
+    }
+
+    infile.close();
 
     // Node ** leafnodes = new Node*[numLeaves];
     // for(int i = 0; i<numLeaves; i++){
@@ -29,24 +39,26 @@ int main(){
     //     // cout << leafnodes[i]->value[0] << endl;
     // }
 
-    Node * Uzi = summonUzi();
+    // Node * Uzi = summonUzi();
     // cout << Uzi->child[0]->value[0] << endl;
 
-    Node * one = new Node(1);
-    Tree * clive = new Tree(Uzi);
+    // Node * one = new Node(1);
+    // // Tree * clive = new Tree(Uzi);
     // Tree * clive = new Tree(one);
 
     // cout << "Node: " << one->value[0] << " " << one->value[1] << " " << one->value[2] << endl;    
 
-    cout << "Clive Version 0 " << endl;
-    clive->print(clive->root);
+    // cout << "Clive Version 0 " << endl;
+    // clive->print(clive->root);
 
 
     // clive->root = clive->insert(40, clive->root);
     // // clive->print(clive->root);
     // clive->root = clive->insert(0, clive->root);
-    // // clive->print(clive->root);
+    // // // clive->print(clive->root);
+    // clive->root = clive->insert(1, clive->root);
     // clive->root = clive->insert(4, clive->root);
+    // clive->root = clive->insert(5, clive->root);
     
     // clive->root = clive->insert(10, clive->root);
     // clive->print(clive->root);
@@ -55,7 +67,7 @@ int main(){
     // clive->root = clive->insert(7, clive->root);
     
     // clive->root = clive->insert(45, clive->root);
-    // // clive->print(clive->root);
+    // clive->print(clive->root);
     // clive->root = clive->insert(21, clive->root);
     // clive->root = clive->insert(15, clive->root);
     // clive->root = clive->insert(6, clive->root);
@@ -66,23 +78,40 @@ int main(){
     // clive->root = clive->insert(55, clive->root);
     // clive->root = clive->insert(54, clive->root);
     // clive->root = clive->insert(160, clive->root);
+    clive->print(clive->root);
 
-    // clive->kill(8, clive->root);
+    // for(int i = 0; i < (numLeaves/2); i++){
+    //     cout << "deleting value " << leaves[i] << endl;
+    //     clive->kill(leaves[i], clive->root);
+    // }
+    clive->kill(1, clive->root);
+    clive->print(clive->root);
+    clive->kill(3, clive->root);
     // clive->kill(55, clive->root);
     // clive->kill(160, clive->root);
     
 
-    // cout << "root: " << clive->root->value[0] << " " << clive->root->value[1] << " " << clive->root->value[2] << endl;
-    // cout << clive->root << endl;
+    // // cout << "root: " << clive->root->value[0] << " " << clive->root->value[1] << " " << clive->root->value[2] << endl;
+    // // cout << clive->root << endl;
     // cout << "Clive Version 1 (After insert) " << endl;
     // clive->print(clive->root);
 
     // // need to fix kill for 5, works for the rest of the left of the tree
-    clive->kill(1, clive->root);
-    // // clive->kill(14, clive->root);
-
-    cout << "Clive Version 2 (After delete) " << endl;
+    // clive->root = clive->kill(55, clive->root);
+    // clive->root = clive->insert(43, clive->root);
+    // clive->root = clive->kill(54, clive->root);
     clive->print(clive->root);
+    // cout << clive->root << endl;
+    // clive->root = clive->kill(1, clive->root);
+    // clive->root = clive->kill(4, clive->root);
+    // clive->root = clive->kill(5, clive->root);
+
+    // cout << "Clive Version 2 (After delete) " << endl;
+    // clive->print(clive->root);
+
+    // clive->root = clive->insert(1, clive->root);
+
+    // clive->print(clive->root);
 
     // Node * searchTest = clive->search(clive->root,7);
     // if(searchTest->value[0]){
@@ -99,6 +128,7 @@ int main(){
 
     // delete one;
     // obliterateUzi(Uzi);
+    delete clive;
     return 0;
 }
 
