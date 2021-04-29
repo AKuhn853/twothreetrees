@@ -274,7 +274,12 @@ class Node{
             
             // to get the number of children between p and its siblings,
             // we need to know how many siblings p has
-            Node * grandpa = p->parent;
+            Node * grandpa;
+            if(p->parent)
+                grandpa = p->parent;
+            else{}
+                //node to delete is a root's child
+                //TODO: provide else logic because node won't have a grandpa to work with
 
             int numSiblings = grandpa->numChildren();
             int totChildren = 0;
@@ -310,7 +315,7 @@ class Node{
                 }
                 cout << "the node to assimilate is the grandfather's " << j << "th child ";
                 cout << "and has values " << grandpa->child[j]->child[0]->value[0] <<  " " << grandpa->child[j]->child[0]->value[1] << " " << grandpa->child[j]->child[0]->value[2] << " " << endl;
-
+                cout << "grandpa's " << 1 << "th child has " << grandpa->child[1]->numChildren() << " children" << endl;
                 // generalize the indicies; things may change depending 
                 // on what node is deleted
                 // also should probs set parents of nodes but that's for future us
@@ -330,6 +335,9 @@ class Node{
                     grandpa->child[0]->child[2] = NULL;
                     cout << "5*" << endl;
                 } else{
+                    children[i++] = grandpa->child[0]->child[0];
+                    children[i++] = grandpa->child[0]->child[1];
+                    children[i++] = grandpa->child[0]->child[1];
                     grandpa->child[0]->child[0] = NULL;
                     grandpa->child[0]->child[1] = NULL;
                     grandpa->child[0]->child[2] = NULL;
@@ -360,7 +368,7 @@ class Node{
                     children[i++] = grandpa->child[2]->child[0];
                     grandpa->child[2]->child[0] = NULL;
                     cout << "5^" << endl;
-                }else if(grandpa->child[2]->numChildren()==1){
+                }else if(grandpa->child[2]->numChildren()==2){
                     children[i++] = grandpa->child[2]->child[0];
                     children[i++] = grandpa->child[2]->child[2];
                     grandpa->child[2]->child[0] = NULL;
@@ -482,4 +490,3 @@ class Node{
             return;
         }
 };
-
