@@ -216,6 +216,7 @@ class Node{
         }
 
         void discard(Node * removeChild, Node * root){
+            cout << "discarding node {" << removeChild->value[0] << " " << removeChild->value[1] << " " << removeChild->value[2] << "}" << endl;
             Node * p = removeChild->parent;
 
             // severing connection between p and removeChild
@@ -223,19 +224,22 @@ class Node{
 
             if(p->numChildren()==3){
                 // easy case; removing leaf of full parent
-                // if(p->numChildren()==2){
                 int killVal = removeChild->value[0];
                 if(removeChild==p->child[0]){
                     p->child[0] = p->child[1];
                     p->value[0] = p->child[1]->value[0];
+                    p->value[1] = -1;
                     p->child[1] = NULL;
                 }else if (removeChild==p->child[1]){
                     p->child[1] = NULL;
+                    p->value[1] = -1;
                 }else if(removeChild==p->child[2]){
                     p->child[2] = p->child[1];
                     p->value[2] = p->child[1]->value[0];
                     p->child[1] = NULL;
+                    p->value[1] = -1;
                 }
+                //Bubble up and fill in new values if necessary
                 Node * frank = p;
                 while(frank->parent){ 
                     frank = frank->parent; 
@@ -250,13 +254,22 @@ class Node{
                 return;
             }
 
+            // If root does not have three children, we can't delete one of its two children.
+            if(p==root){
+                cout << "CANNOT DELETE: Deletion of this value will result in an incomplete tree." << endl;
+                return;
+            }
+
             // harder case: have to do some reshuffling
             if(removeChild==p->child[0]){
                 p->child[0] = p->child[2];
+                p->value[0] = p->value[2];
                 p->child[0]->value[0] = p->child[2]->value[0];
                 p->child[2] = NULL;
+                p->value[2] = -1;
             }else if(removeChild==p->child[2]){
                 p->child[2] = NULL;
+                p->value[2] = -1;
             }
             
             // to get the number of children between p and its siblings,
@@ -277,11 +290,8 @@ class Node{
 
             // cout << "gramps kid num: " << grandpa->numChildren() << endl;
             cout << "gramps: " << grandpa->value[0] <<  " " << grandpa->value[1] << " " << grandpa->value[2] << " " << endl;  
-            if(grandpa->numChildren()==3){
-                cout << "remaining: " << grandpa->child[1]->value[0] <<  " " << grandpa->child[1]->value[1] << " " << grandpa->child[1]->value[2] << " " << endl;
-            }
             
-            cout << "numSibling: " << numSiblings << " totChildren = " << totChildren << endl;
+            // cout << "numSibling: " << numSiblings << " totChildren = " << totChildren << endl;
             // cout << "??? " << totChildren << endl;
             
             // cout << "child 0: " << grandpa->child[0]->value[0] << " " << grandpa->child[0]->value[1] << " " << grandpa->child[0]->value[2] << endl;
@@ -294,11 +304,13 @@ class Node{
                 int j = 0;
                 for(j; j < 3; j++){
                     if(grandpa->child[j]==p){
-                        cout << " do we make it to the loop?" << endl;
+                        cout << "node's position has been identified" << endl;
                         break;
                     }
                 }
-                cout << "j: " << j << endl;
+                cout << "the node to assimilate is the grandfather's " << j << "th child ";
+                cout << "and has values " << grandpa->child[j]->child[0]->value[0] <<  " " << grandpa->child[j]->child[0]->value[1] << " " << grandpa->child[j]->child[0]->value[2] << " " << endl;
+
                 // generalize the indicies; things may change depending 
                 // on what node is deleted
                 // also should probs set parents of nodes but that's for future us
@@ -449,62 +461,25 @@ class Node{
                   
             }
             else if(totChildren==3){
-                cout << "SADNESS" << endl;
-                Node * b;
-                if(p->child[0]){
-                    b = p->child[0];
+                if(grandpa->child[0]==p){
+                    grandpa->child[2]->value[1] = grandpa->child[2]->value[0];
+                    grandpa->child[2]->child[1] = grandpa->child[2]->child[0];
+                    grandpa->child[2]->child[0] = p->child[0];
+                    grandpa->child[2]->value[0] = p->value[0];
+                    cout << "new grandchild 2: {" << grandpa->child[2]->value[0] << " " << grandpa->child[2]->value[1] << " " << grandpa->child[2]->value[2] << "}" << endl;
+                    discard(p, root);                    
+                    
                 }else{
-                    b = p->child[2];
+                    grandpa->child[0]->child[1] = grandpa->child[0]->child[2];
+                    grandpa->child[0]->value[1] = grandpa->child[0]->value[2];
+                    grandpa->child[0]->child[2] = p->child[0];
+                    grandpa->child[0]->value[2] = p->child[0]->value[0];
+                    grandpa->value[0] = grandpa->child[0]->value[2];
+                    cout << "new grandchild 0: {" << grandpa->child[0]->value[0] << " " << grandpa->child[0]->value[1] << " " << grandpa->child[0]->value[2] << "}" << endl;
+                    discard(p, root);
                 }
-                if(p==root){
-                    root = b;
-                    return;
-                }
-
-                if(removeChild==p->child[0]){
-                    p->child[0] = NULL;
-                    absorb(p->child[2],root);
-                    return;
-                }else if(removeChild==p->child[2]){
-                    p->child[2] = NULL;
-                    absorb(p->child[0],root);
-                    return;
-                }
-
-                // Node * grampsKid;
-                // if(p->child[0]){
-                //     grampsKid = p->child[0];
-                // }else{
-                //     grampsKid = p->child[2];
-                // }
-                // if(grandpa->child[0]==p){
-                //     // grandpa->child[2]->value[1] = grandpa->child[2]->value[0];
-                //     // grandpa->child[2]->child[1] = grandpa->child[2]->child[0];
-                //     // grandpa->child[2]->child[0] = b;
-                //     // grandpa->child[2]->value[0] = b->value[0];
-            
-                //     // grandpa->child[0] = NULL;
-                //     // grandpa->value[0] = -1;
-                //     // grampsKid = grandpa->child[2];
-                    
-                    
-                // }else{
-                //     cout << "b: " << b->value[0] << " " << b->value[1] << " " << b->value[2] << endl;
-                //     grandpa->child[0]->child[1] = grandpa->child[2]->child[2];
-                //     grandpa->child[0]->child[2] = b;
-                //     grandpa->child[0]->value[2] = b->value[0];
-                    
-
-                //     grandpa->value[0] = grandpa->child[0]->value[2];
-                //     grandpa->child[2] = NULL;
-                //     grandpa->value[2] = -1;
-                //     grampsKid = grandpa->child[0];
-                // }
-                // cout << "gramps 2.0 " << grandpa->value[0] << " " << grandpa->value[1] << " " << grandpa->value[2] << endl;
-                // cout << "19 24 28??: " << grandpa->child[2]->value[0] <<  " " << grandpa->child[2]->value[1] << " " << grandpa->child[2]->value[2] << " " << endl;
-                // absorb(grampsKid, root);
-                return;
             }
+            return;
         }
-
 };
+
