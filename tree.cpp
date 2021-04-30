@@ -7,7 +7,6 @@ class Tree {
                 cout << "You tried to print an empty tree." << endl;
                 return;
             }
-            // cout << "outside of logic: { " << start->value[0] << " " << start->value[1] << " " << start->value[2] << " }" << endl;
             if(start->numChildren()==3){
                 cout << "{ " << start->value[0] << " " << start->value[1] << " " << start->value[2] << " }" << endl;
                 for(int i = 0; i < 3; i++){
@@ -53,15 +52,12 @@ class Tree {
             }
         }
         Node * insert(int valToAdd, Node * root){
-            cout <<"inserting " << valToAdd << endl;
             if(!root){
                 Node * newRoot = new Node(valToAdd);
                 return newRoot;
             }
                 
             Node * b = search(root, valToAdd);
-            cout << "search val: " << b->value[0] << endl;
-            cout << endl;
             if(b->value[0]==valToAdd){
                 return root;
             }
@@ -102,10 +98,12 @@ class Tree {
                 b = root;
             else
                 b = search(root, valToKill);
-            cout << b->value[0] << endl;
+
             if(b->value[0]==valToKill){
                 root = root->discard(b, root);
-                return root;
+                if(root){
+                    return root;
+                }
             } 
             else{
                 return root;
